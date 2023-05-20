@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class MonsterCreator : MonoBehaviour
 {
-    public GameObject monster;
+    public List<GameObject> monster;
     public float interval;
     public int MaxCount;
     public Vector2 offset;
@@ -25,6 +25,10 @@ public class MonsterCreator : MonoBehaviour
             return;
         }
         time = 0;
+        if (this.monster.Count < 1)
+        {
+            return;
+        }
         this.Create();
     }
 
@@ -33,7 +37,7 @@ public class MonsterCreator : MonoBehaviour
         int number = Random.Range(0, MaxCount);
         for (int index = 0; index < number; index++)
         {
-            var mon = Instantiate(this.monster, this.transform);
+            var mon = Instantiate(this.monster[Random.Range(0, this.monster.Count)], this.transform);
             mon.transform.localPosition = new Vector3(0,Random.Range(0, 6) / this.offset.y + this.offset.x,0);
             int PosY = Random.Range(0, 6);
         }

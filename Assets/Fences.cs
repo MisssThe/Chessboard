@@ -30,7 +30,11 @@ public class Fences : MonoBehaviour
     public static void RemoveHealth(float h)
     {
         SM_health -= h;
-        if (SM_health < SM_threshold1)
+        if (SM_health < 0)
+        {
+            Active(0);
+        }
+        else if (SM_health < SM_threshold1)
         {
             Active(1);
         }
@@ -57,6 +61,9 @@ public class Fences : MonoBehaviour
 
         switch (level)
         {
+            case 0:
+                level1.transform.parent.gameObject.SetActive(false);
+                break;
             case 1:
                 level1.SetActive(true);
                 break;
@@ -69,7 +76,7 @@ public class Fences : MonoBehaviour
         }
     }
     // Start is called before the first frame update
-    void Start()
+    void OnEnable()
     {
         level1 = this.transform.GetChild(0).gameObject;
         level2 = this.transform.GetChild(1).gameObject;

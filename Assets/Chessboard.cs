@@ -9,6 +9,7 @@ public class Chessboard : MonoBehaviour
     public int width,height;
     public Vector2 distance;
     public Vector2 position;
+    public GameObject obstacle;
     public float size;
     public List<Texture2D> chessesTexture;
     private Vector2 m_Threshold;
@@ -533,7 +534,9 @@ public class Chessboard : MonoBehaviour
             m_Choose.IsNull = flag;
             m_Choose.IsLock = flag;
             m_Choose.transform.GetComponent<MeshRenderer>().enabled = !flag;
-            m_Choose.transform.GetChild(0).gameObject.SetActive(flag);
         }
+        if(this.obstacle == null)
+            return;
+        this.obstacle.SetActive(flag);
     }
 }
