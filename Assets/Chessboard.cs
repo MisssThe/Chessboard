@@ -16,6 +16,7 @@ public class Chessboard : MonoBehaviour
     public AnimationClip star;
     public AnimationClip remove;
     public AnimationClip appear;
+    public int health = 1;
 
     private float m_StarTime;
     private float m_RemoveTime;
@@ -470,7 +471,7 @@ public class Chessboard : MonoBehaviour
 
     public void AddScore(int size)
     {
-        
+        Fences.AddHealth(size * this.health);
     }
 
     //补充棋子

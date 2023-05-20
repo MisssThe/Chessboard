@@ -4,72 +4,90 @@ using UnityEngine;
 
 public class Fences : MonoBehaviour
 {
-    public GameObject level1;
-    public GameObject level2;
-    public GameObject level3;
-    public float health = 100;
+    public static GameObject level1;
+    public static GameObject level2;
+    public static GameObject level3;
+    public float health = 20;
     public float threshold1 = 30;
     public float threshold2 = 60;
+    public static float SM_health;
+    public static float SM_threshold1 = 30;
+    public static float SM_threshold2 = 60;
     
-    public void AddHealth(float h)
+    public static void AddHealth(float h)
     {
-        this.health += h;
-        if (this.health > this.threshold2)
+        SM_health += h;
+        if (SM_health > SM_threshold2)
         {
-            this.Active(3);
+            Active(3);
         }
-        else if (this.health > this.threshold1)
+        else if (SM_health > SM_threshold1)
         {
-            this.Active(2);
+            Active(2);
         }
     }
 
-    public void RemoveHealth(float h)
+    public static void RemoveHealth(float h)
     {
-        this.health -= h;
-        if (this.health < this.threshold1)
+        SM_health -= h;
+        if (SM_health < SM_threshold1)
         {
-            this.Active(1);
+            Active(1);
         }
-        else if (this.health < this.threshold2)
+        else if (SM_health < SM_threshold2)
         {
-            this.Active(2);
+            Active(2);
         }
     }
 
-    public void Active(int level)
+    public static void Active(int level)
     {
-        if (this.level1.activeSelf)
+        if (level1.activeSelf)
         {
-            this.level1.SetActive(false);
+            level1.SetActive(false);
         }
-        if (this.level2.activeSelf)
+        if (level2.activeSelf)
         {
-            this.level2.SetActive(false);
+            level2.SetActive(false);
         }
-        if (this.level3.activeSelf)
+        if (level3.activeSelf)
         {
-            this.level3.SetActive(false);
+            level3.SetActive(false);
         }
 
         switch (level)
         {
             case 1:
-                this.level1.SetActive(true);
+                level1.SetActive(true);
                 break;
             case 2:
-                this.level2.SetActive(true);
+                level2.SetActive(true);
                 break;
             case 3:
-                this.level3.SetActive(true);
+                level3.SetActive(true);
                 break;
         }
     }
     // Start is called before the first frame update
     void Start()
     {
-        this.level1 = this.transform.GetChild(0).gameObject;
-        this.level2 = this.transform.GetChild(1).gameObject;
-        this.level3 = this.transform.GetChild(2).gameObject;
+        level1 = this.transform.GetChild(0).gameObject;
+        level2 = this.transform.GetChild(1).gameObject;
+        level3 = this.transform.GetChild(2).gameObject;
+        SM_health = this.health;
+        SM_threshold1 = this.threshold1;
+        SM_threshold2 = this.threshold2;
+        if (SM_health < SM_threshold1)
+        {
+            Active(1);
+        }
+        else if (SM_health < SM_threshold2)
+        {
+            Active(2);
+        }
+        else
+        {
+            Active(3);
+        }
     }
 }
